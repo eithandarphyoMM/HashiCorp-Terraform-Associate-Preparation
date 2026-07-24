@@ -1,0 +1,4 @@
+# demo only
+bucket = "terraform-remote-backend-demo-20260724"
+key    = "06-exercise-2026-Jul-25/dev/state.tfstate"
+region = "ap-northeast-1"
