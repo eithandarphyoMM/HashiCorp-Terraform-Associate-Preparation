@@ -1,32 +1,34 @@
+locals {
+  common_tags = {
+    ManagedBy  = "Terraform"
+    Project    = "08-exercise-2026-Jul-26"
+    CostCenter = "1234"
+  }
+}
+
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name      = "08-exercise-2026-Jul-26-vpc"
-    ManagedBy = "Terraform"
-    Project   = "08-exercise-2026-Jul-26"
-  }
+  tags = merge(local.common_tags, {
+    Name = "08-exercise-2026-Jul-26-vpc"
+  })
 }
 
 resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.0.0/24"
 
-  tags = {
-    Name      = "08-exercise-2026-Jul-26-public-subnet"
-    ManagedBy = "Terraform"
-    Project   = "08-exercise-2026-Jul-26"
-  }
+  tags = merge(local.common_tags, {
+    Name = "08-exercise-2026-Jul-26-public-subnet"
+  })
 }
 
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = {
-    Name      = "08-exercise-2026-Jul-26-igw"
-    ManagedBy = "Terraform"
-    Project   = "08-exercise-2026-Jul-26"
-  }
+  tags = merge(local.common_tags, {
+    Name = "08-exercise-2026-Jul-26-igw"
+  })
 }
 
 resource "aws_route_table" "public" {
@@ -37,11 +39,9 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.main.id
   }
 
-  tags = {
+  tags = merge(local.common_tags, {
     Name = "08-exercise-2026-Jul-26-public-route-table"
-    ManagedBy = "Terraform"
-    Project    = "08-exercise-2026-Jul-26"
-  }
+  })
 }
 
 resource "aws_route_table_association" "public" {
