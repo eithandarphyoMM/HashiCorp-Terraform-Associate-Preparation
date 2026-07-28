@@ -29,6 +29,10 @@ resource "aws_instance" "web" {
   tags = merge(local.common_tags, {
     Name = "08-exercise-2026-Jul-26-Ubuntu-WebServer"
   })
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group" "public_http_traffic" {
