@@ -16,7 +16,31 @@ resource "aws_instance" "web" {
 
   subnet_id = aws_subnet.public.id
 
+  vpc_security_group_ids = [aws_security_group.public_http_traffic.id]
+
   tags = merge(local.common_tags, {
     Name = "08-exercise-2026-Jul-26-web-instance"
   })
+}
+
+resource "aws_security_group" "public_http_traffic" {
+  name        = "08-exercise-2026-Jul-26-public-http-traffic"
+  description = "Security group allowing traffic on ports 443 and 80"
+  vpc_id      = aws_vpc.main.id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http" {
+  security_group_id = aws_security_group.public_http_traffic.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  to_port           = 80
+  ip_protocol       = "tcp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "https" {
+  security_group_id = aws_security_group.public_http_traffic.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 443
+  to_port           = 443
+  ip_protocol       = "tcp"
 }
