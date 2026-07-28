@@ -4,5 +4,5 @@ Steps for implemenation:
 3. 「DONE」Setup a route table with a route to the IGW
 4. 「DONE」 Deploy an EC2 instance inside of the created subnet and associate a public IP
 5. 「DONE」 Associate a security group that allows public ingress
-6. Change the EC2 instance to use a publicly available NGINX AMI
+6. 「DONE」 Change the EC2 instance to use a publicly available NGINX AMI
 7. Destroy everything
