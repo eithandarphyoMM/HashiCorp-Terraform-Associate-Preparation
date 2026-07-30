@@ -17,3 +17,7 @@ output "caller_user" {
 output "aws_region" {
   value = data.aws_region.current.endpoint
 }
+
+output "prod_vpc_id" {
+  value = data.aws_vpc.prod_vpc.id
+}
