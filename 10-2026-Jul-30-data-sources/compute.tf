@@ -27,6 +27,29 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
+data "aws_iam_policy_document" "static_website" {
+  statement {
+    sid = "PublicReadGetObject"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = ["s3:GetObject"]
+
+    resources = ["${aws_s3_bucket.public_read_bucket.arn}/*"]
+  }
+}
+
+resource "random_id" "bucket_id" {
+  byte_length = 4
+}
+
+resource "aws_s3_bucket" "public_read_bucket" {
+  bucket = "my-public-read-bucket-${random_id.bucket_id.hex}"
+}
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
