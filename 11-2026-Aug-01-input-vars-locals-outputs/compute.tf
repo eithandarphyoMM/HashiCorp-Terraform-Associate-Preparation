@@ -1,25 +1,30 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Owner is Canonical
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*-22.04-arm64-server-*"] # arm64 instead of amd64
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "architecture"
+    values = ["arm64"]
+  }
 }
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = var.ec2_instance_type
 
   root_block_device {
     delete_on_termination = true
-    volume_size           = 10
-    volume_type           = "gp3"
+    volume_size           = var.ec2_volume_size
+    volume_type           = var.ec2_volume_type
   }
 }
