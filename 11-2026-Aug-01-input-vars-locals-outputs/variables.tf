@@ -10,8 +10,8 @@ variable "ec2_instance_type" {
   default     = "t3.micro"
 
   validation {
-    condition     = contains(["t3.micro", "t3.small", "t4g.micro"], var.ec2_instance_type) //Free Tier eligible instance types
-    error_message = "Invalid EC2 instance type. Allowed values are: t3.micro, t3.small, t4g.micro."
+    condition     = contains(["t3.micro", "t3.small", "t4g.micro", "t4g.small"], var.ec2_instance_type) //Free Tier eligible instance types
+    error_message = "Invalid EC2 instance type. Allowed values are: t3.micro, t3.small, t4g.micro, t4g.small."
   }
 }
 
