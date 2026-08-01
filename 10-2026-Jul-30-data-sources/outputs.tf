@@ -18,6 +18,18 @@ output "aws_region" {
   value = data.aws_region.current.endpoint
 }
 
+output "available_azs_id" {
+  value = data.aws_availability_zones.available.id
+}
+
+output "available_azs_names" {
+  value = data.aws_availability_zones.available.names
+}
+
+output "iam_policy" {
+  value = data.aws_iam_policy_document.static_website.json
+}
+
 output "prod_vpc_id" {
   value = data.aws_vpc.prod_vpc.id
 }
