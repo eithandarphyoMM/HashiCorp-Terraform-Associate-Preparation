@@ -24,7 +24,15 @@ resource "aws_instance" "web" {
 
   root_block_device {
     delete_on_termination = true
-    volume_size           = var.ec2_volume_size
-    volume_type           = var.ec2_volume_type
+    volume_size           = var.ec2_volume_config["size"]
+    volume_type           = var.ec2_volume_config["type"]
   }
+
+  tags = merge(
+    {
+      Name      = "Terraform-EC2-Instance"
+      ManagedBy = "Terraform"
+    },
+    var.additional_tags
+  )
 }

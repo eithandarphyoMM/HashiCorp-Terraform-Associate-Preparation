@@ -15,14 +15,18 @@ variable "ec2_instance_type" {
   }
 }
 
-variable "ec2_volume_size" {
-  type        = number
-  description = "EC2 volume size"
-  default     = 10
+variable "ec2_volume_config" {
+  type        = map(string)
+  description = "The size and type of the root block volume for the EC2 instance"
+
+  default = {
+    size = 10
+    type = "gp3"
+  }
 }
 
-variable "ec2_volume_type" {
-  type        = string
-  description = "EC2 volume type"
-  default     = "gp3"
+variable "additional_tags" {
+  type        = map(string)
+  description = "Additional tags to apply to resources"
+  default     = {}
 }
