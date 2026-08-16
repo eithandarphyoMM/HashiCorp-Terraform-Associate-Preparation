@@ -10,3 +10,7 @@ output "passwords" {
 output "policies" {
   value = local.role_policies_list
 }
+
+output "users_map" {
+  value = local.users_map
+}
